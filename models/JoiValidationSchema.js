@@ -6,6 +6,15 @@ exports.schemas = {
       .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
       .required(),
     password: Joi.string().alphanum().min(6).required(),
-    confirmPassword: Joi.ref("password"),
+    confirmPassword: Joi.string()
+      .valid(Joi.ref("password"))
+      .required()
+      .messages({
+        "any.only": "Password and Confirm Password do not match",
+      }),
+  }),
+  loginSchema: Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
   }),
 };
