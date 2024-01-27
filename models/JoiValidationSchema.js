@@ -1,9 +1,10 @@
 const Joi = require("joi");
 exports.schemas = {
   registerSchema: Joi.object({
-    name: Joi.string().required(),
+    name: Joi.string().trim().required(),
     email: Joi.string()
       .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+      .trim()
       .required(),
     password: Joi.string().alphanum().min(6).required(),
     confirmPassword: Joi.string()

@@ -6,7 +6,9 @@ const validation = (schema) => {
     });
     if (error) {
       const errorList = error.details.map((err) => err.message);
-      return res.status(500).json(errorList);
+      res.status(400);
+      throw new Error(errorList);
+      // return res.status(500).json(errorList);
     }
     next();
   };
